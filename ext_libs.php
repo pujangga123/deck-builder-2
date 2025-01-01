@@ -48,3 +48,12 @@
         $values = substr($values,0,-1);
         return "($cols) VALUES ($values)";
     }
+
+    function getParam($param, $default) {
+        if(isset($_GET[$param])) {
+            return $_GET[$param];
+        } else {
+            return $default;
+        }
+
+    }
