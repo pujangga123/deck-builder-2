@@ -1,0 +1,2 @@
+<?php
+    $_title = "Home";
