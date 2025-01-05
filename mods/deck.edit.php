@@ -2,15 +2,8 @@
 require_once(PATH_CLASS."Deck.php");
 
 $_title = "Deck Edit";
-$deck = getParam('deck','');
+$id = getParam('id','');
 
-$d = dir(PATH_DECKS.$deck);
-$list = array();
-while (false !== ($entry = $d->read())) {
-    if(substr($entry,-4,4)=='.jpg') {
-        $list[] = $entry;
-    }
-}
-$d->close();
+$deck = new Deck($id);
 
-$smarty->assign("list", $list);
+$smarty->assign("deck", $deck);

@@ -22,6 +22,15 @@
         return date("ymdHis").str_pad(rand(0,9999),4,"0",STR_PAD_LEFT);
     }
 
+    function generateId2() {
+        $arr = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','1','2','3','4','5','6','7','8','9','0'];
+        $id = "";
+        for($i=0;$i<8;$i++) {
+            $id .= $arr[rand(0,35)];
+        }
+        return $id;
+    }
+
     function generateUpdateSet($row) {
         $sets = "";
         foreach($row as $key=>$val) {

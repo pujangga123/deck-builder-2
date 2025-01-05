@@ -2,7 +2,7 @@
 /*
 class Deck
 - Deck is collection of cards
-- Deck defines height and width of card, card back, card background
+- Deck defines height and width of card, default card back, default card frame
 - Once Deck created, height and width cannot be changed
 */
 
@@ -20,11 +20,12 @@ class Deck {
         // read deck.json
         try {
             $json = file_get_contents(PATH_DECKS.$id."/deck.json");
-            $deckinfo = json_decode($json);
-
+            $deckinfo = json_decode($json,true);
             $this->id = $id;
             $this->name = $deckinfo['name'];
             $this->desc = isset($deckinfo['desc'])?$deckinfo['desc']:'';
+            $this->width = isset($deckinfo['width'])?$deckinfo['width']:0;
+            $this->height = isset($deckinfo['height'])?$deckinfo['height']:0;
 
             $this->loaded = true;
         } catch (Exception $e) {
@@ -67,18 +68,22 @@ class Deck {
     }
 }
 
-function deckCreate($name, $type, $description) {
+function deckCreate($name, $width,  $height) {
+    $id = generateId2();
+
     $data = array(
         "name"=>$name,
-        "type"=>$type,
-        "description"=>$description);
+        "description"=>"",
+        "width"=>$width,
+        "height"=>$height
+    );
     $datajson = json_encode($data);
 
     // create dir;
-    mkdir(PATH_DECKS.$name);
+    mkdir(PATH_DECKS.$id);
 
     // write deck.json
-    file_put_contents(PATH_DECKS.$name."/deck.json",$datajson);
+    file_put_contents(PATH_DECKS.$id."/deck.json",$datajson);
 }
 
 /*
@@ -93,8 +98,7 @@ function deckList() {
     while (false !== ($entry = $d->read())) {
         if(is_dir(getcwd().'/'.PATH_DECKS.$entry) && $entry!='.' && $entry!='..') {
             $deck = new Deck($entry);
-            $list[$entry] = $deck->getName();
-            unset($deck);
+            $list[$entry] = $deck;
         }
     }
     $d->close();
