@@ -66,6 +66,20 @@ class Deck {
     function isLoaded() {
         return $this->loaded;
     }
+
+    function cardList() {
+        $d = dir(PATH_DECKS.$this->id);
+        $list = array();
+        while (false !== ($entry = $d->read())) {
+            if(is_dir(getcwd().'/'.PATH_DECKS."$this->id/$entry") && $entry!='.' && $entry!='..') {
+                $card = new Card($this->id, $entry);
+                $list[$entry] = $card;
+            }
+        }
+        $d->close();
+        return $list;
+    }
+
 }
 
 function deckCreate($name, $width,  $height) {
