@@ -56,6 +56,15 @@ class Card {
         return $this->loaded;
     }
 
+    function hasCardDraft() {
+        return file_exists(PATH_DECKS."$this->deckId/$this->id/ori.png");
+    }
+
+    function hadCard() {
+        return file_exists(PATH_DECKS."$this->deckId/$this->id/card.png");
+    }
+
+
     // file path to Card Back image
     function hasBackImg() {
         return $this->backImg;
@@ -69,6 +78,10 @@ class Card {
     // get Deck object
     function getDeck() {
 
+    }
+
+    function getPath() {
+        return PATH_DECKS."$this->deckId/$this->id/";
     }
 
 }
