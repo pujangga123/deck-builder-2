@@ -4,8 +4,8 @@ require_once(PATH_CLASS."Card.php");
 
 
 $_title = "Deck Edit";
-$id = getParam('id','');
+$deckId = getParam('deckId','');
 
-$deck = new Deck($id);
+$deck = new Deck($deckId);
 
 $smarty->assign("deck", $deck);

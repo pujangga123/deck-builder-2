@@ -6,9 +6,10 @@ if ($token == "card") {
     $deckId = $_POST["deckId"];
     $cardId = $_POST["cardId"];
     $returnUrl = "?p=card.edit&deckId=$deckId&cardId=$cardId";
+    $imageFileType = strtolower(pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION));
+
     $target_dir = PATH_DECKS . "$deckId/$cardId/";
     $target_file = $target_dir . "ori.png";
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     // Check if image file is a actual image or fake image
     if (isset($_POST["submit"])) {
         $check = getimagesize($_FILES["file"]["tmp_name"]);
@@ -52,11 +53,8 @@ if ($_FILES["file"]["size"] > 500000) {
 }
 
 // Allow certain file formats
-if (
-    $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-    && $imageFileType != "gif"
-) {
-    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+    echo "Sorry, only JPG, JPEG & PNG";
     $uploadOk = 0;
 }
 
@@ -64,10 +62,16 @@ if (
 if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
     // if everything is ok, try to upload file
-} else {
-    if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+} else {    
+    if($imageFileType == "jpg" || $imageFileType == "jpeg") {
+        imagepng(imagecreatefromstring(file_get_contents($_FILES["file"]["tmp_name"])), $target_file);
         header("location:$returnUrl");
     } else {
-        echo "Sorry, there was an error uploading your file.";
+        if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+            header("location:$returnUrl");
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
     }
+    
 }

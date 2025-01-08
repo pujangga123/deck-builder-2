@@ -7,5 +7,5 @@
 </form>
 
 {foreach from=$list item=deck key=key}
-    <a href="?p=deck.edit&id={$deck->getId()}">{$deck->getName()}</a><br>
+    <a href="?p=deck.edit&deckId={$deck->getId()}">{$deck->getName()}</a><br>
 {/foreach}

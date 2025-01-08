@@ -84,6 +84,11 @@ class Card {
         return PATH_DECKS."$this->deckId/$this->id/";
     }
 
+    function getDraftDimension() {
+        list($width, $height, $type, $attr) = getimagesize($this->getPath()."ori.png"); 
+        return array($width,$height);
+    }
+
 }
 
 function cardCreate($deckId) {
