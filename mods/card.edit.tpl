@@ -3,7 +3,7 @@
 
 
 {if $card->hasCardDraft()}
-    <div id="container-frame" style="padding: 10px; border:1px solid black; width:520px; height:420px;">
+    <div id="container-frame" style="padding: 10px; border:1px solid black; width:420px; height:420px;">
         <div id="container-draft" >
             <img id="full-image" src="{$card->getPath()}ori.png"
                 class="card-img-top" alt="..." style="position:relative" />
@@ -28,7 +28,7 @@ Width: {$draftWidth} - Height: {$draftHeight}
 <script>
     var draftWidth = {$draftWidth};
     var draftHeight = {$draftHeight};
-    var containerWidth = 500;
+    var containerWidth = 400;
     var containerHeight = 400;
 
     var ratio = 1 ;
@@ -49,13 +49,14 @@ Width: {$draftWidth} - Height: {$draftHeight}
     container.style.height = containerHeight+"px";
     image.style.height = draftPreviewHeight+"px";
     image.style.width = draftPreviewWidth+"px";
+    image.style.left = containerWidth/2 - draftWidth/2;
 
     var handleRadius = 10;
-    var effective_image_width = 300;
-    var effective_image_height = 3000;
-    var th_left = 200;
+    var effective_image_width = draftPreviewWidth;
+    var effective_image_height = draftPreviewHeight;
+    var th_left = 20;
     var th_top = 0;
-    var th_right = 3528;
-    var th_bottom = 3024;
+    var th_right = 70;
+    var th_bottom = 400;
 </script>
 <script src="libs/js/imagecrop.js?1"></script>

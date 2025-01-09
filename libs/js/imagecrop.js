@@ -8,15 +8,13 @@
 // var h_th_right = document.getElementById('thb_right')
 // var h_th_bottom = document.getElementById('thb_bottom')
 
-/*
-var handleRadius = 10
-var effective_image_width = 4032;
-var effective_image_height = 3024;
-var th_left = 504;
-var th_top = 0;
-var th_right = 3528;
-var th_bottom = 3024;
-*/
+// var handleRadius = 10
+// var effective_image_width = 4032;
+// var effective_image_height = 3024;
+// var th_left = 504;
+// var th_top = 0;
+// var th_right = 3528;
+// var th_bottom = 3024;
 
 var dragTL = dragBL = dragTR = dragBR = false;
 var dragWholeRect = false;
