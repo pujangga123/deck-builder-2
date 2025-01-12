@@ -8,7 +8,13 @@
 </div>
 
 {foreach from=$deck->cardList() item=card}
-    <a href="?p=card.edit&deckId={$card->getDeckId()}&cardId={$card->getId()}">{$card->getId()} - {$card->getName()}</a><br>
+    <a href="?p=card.edit&deckId={$card->getDeckId()}&cardId={$card->getId()}">
+        {if $card->getName()==""}
+            <span class="text-muted">no name</span>
+        {else}
+            {$card->getName()}
+        {/if}
+    </a><br>
 {/foreach}
 
 <hr>

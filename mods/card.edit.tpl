@@ -1,4 +1,7 @@
 <h1>Card Editor</h1>
+<div>
+    {$card->getName()}
+</div>
 <a href="?p=deck.edit&deckId={$card->getDeckId()}">&lt;&lt; Back to Deck</a><br>
 
 
@@ -24,6 +27,8 @@ Width: {$draftWidth} - Height: {$draftHeight}
     <input type="file" name="file" id="fileToUpload">
     <input type="submit" value="Upload Image" name="submit">
 </form>
+
+{include file="reusable/promptbox.tpl"}
 
 <script>
     var draftWidth = {$draftWidth};
