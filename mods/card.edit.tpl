@@ -1,8 +1,15 @@
 <h1>Card Editor</h1>
 <div>
     {$card->getName()}
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" onclick="promptBox('Card Edit','Set card name','{$card->getName()}')">
+        ✍
+    </button>
 </div>
 <a href="?p=deck.edit&deckId={$card->getDeckId()}">&lt;&lt; Back to Deck</a><br>
+
+
+
 
 
 {if $card->hasCardDraft()}
