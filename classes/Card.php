@@ -10,7 +10,7 @@ class Card
     - card.png
 */
 class Card {
-    private $id;
+    private $id = null;
     private $deckId;
     private $name;
     private $desc;
@@ -47,6 +47,16 @@ class Card {
     function getName() {
         return $this->name;
     }
+
+    function setName($name) {
+        try {            
+            $this->name = $name;
+            return $this->save();
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
 
     function getDesc() {
         return $this->desc;
@@ -87,6 +97,17 @@ class Card {
     function getDraftDimension() {
         list($width, $height, $type, $attr) = getimagesize($this->getPath()."ori.png"); 
         return array($width,$height);
+    }
+
+    private function save() {
+        $data = array(
+            "name"=>$this->name,
+            "description"=>$this->desc
+        );
+        $datajson = json_encode($data);
+    
+        // write deck.json
+        file_put_contents(PATH_DECKS."$this->deckId/$this->id/card.json",$datajson);
     }
 
 }

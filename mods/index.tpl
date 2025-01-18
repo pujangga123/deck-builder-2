@@ -7,7 +7,7 @@
     <title>{$_title}</title>
 
     <!-- jquery -->
-    <script src="{$_path_libs}jquery/jquery-3.7.1.slim.min.js"></script>
+    <script src="{$_path_libs}jquery/jquery-3.7.1.min.js"></script>
 
     <!-- bootstrap -->
     <link href="{$_path_libs}bootstrap/css/bootstrap.min.css" rel="stylesheet">    

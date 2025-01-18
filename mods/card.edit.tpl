@@ -1,8 +1,8 @@
 <h1>Card Editor</h1>
 <div>
-    {$card->getName()}
+    <div id="cardname">{$card->getName()}</div>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" onclick="promptBox('Card Edit','Set card name','{$card->getName()}')">
+    <button type="button" class="btn btn-primary" onclick="setName()">
         ✍
     </button>
 </div>
@@ -35,7 +35,11 @@ Width: {$draftWidth} - Height: {$draftHeight}
     <input type="submit" value="Upload Image" name="submit">
 </form>
 
-{include file="reusable/promptbox.tpl"}
+<!-- global vars -->
+<script>
+    var cardId = "{$card->getId()}";
+    var deckId = "{$card->getDeckId()}";
+</script>
 
 <script>
     var draftWidth = {$draftWidth};
@@ -71,4 +75,20 @@ Width: {$draftWidth} - Height: {$draftHeight}
     var th_right = 70;
     var th_bottom = 400;
 </script>
+
+<script>
+    function setName() {
+        let cardname = $("#cardname").html();
+        let newname = prompt('Set Card Name',cardname);
+        if(newname) {
+            $.post("api.php", { token:'setcardname',deckId:deckId, cardId:cardId, newname:newname },
+                function(result) {
+                    console.log(result);
+                    $("#cardname").html(newname);
+                }
+            );
+        }
+    }
+</script>
+
 <script src="libs/js/imagecrop.js?1"></script>
