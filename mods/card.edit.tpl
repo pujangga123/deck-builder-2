@@ -9,9 +9,6 @@
 <a href="?p=deck.edit&deckId={$card->getDeckId()}">&lt;&lt; Back to Deck</a><br>
 
 
-
-
-
 {if $card->hasCardDraft()}
     <div id="container-frame" style="padding: 10px; border:1px solid black; width:420px; height:420px;">
         <div id="container-draft" >
@@ -41,6 +38,7 @@ Width: {$draftWidth} - Height: {$draftHeight}
     var deckId = "{$card->getDeckId()}";
 </script>
 
+<!-- crop -->
 <script>
     var draftWidth = {$draftWidth};
     var draftHeight = {$draftHeight};
@@ -75,6 +73,7 @@ Width: {$draftWidth} - Height: {$draftHeight}
     var th_right = 70;
     var th_bottom = 400;
 </script>
+<script src="libs/js/imagecrop.js?1"></script>
 
 <script>
     function setName() {
@@ -90,5 +89,3 @@ Width: {$draftWidth} - Height: {$draftHeight}
         }
     }
 </script>
-
-<script src="libs/js/imagecrop.js?1"></script>
