@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="libs/chopper/cropper.css">
 <h1>Card Editor</h1>
 <div>
     <div id="cardname">{$card->getName()}</div>
@@ -10,13 +11,8 @@
 
 
 {if $card->hasCardDraft()}
-    <div id="container-frame" style="padding: 10px; border:1px solid black; width:420px; height:420px;">
-        <div id="container-draft" >
-            <img id="full-image" src="{$card->getPath()}ori.png"
-                class="card-img-top" alt="..." style="position:relative" />
-            <canvas id="canvas" style="position:absolute; left: 0px; top: 0px">
-            </canvas>
-        </div>
+    <div id="container-frame" style="border:1px solid black; width:400px; max-height:300px">
+        <img id="draftPreview" src="{$card->getPath()}ori.png" style="max-width: 100%; display:block";/>
     </div>
 {else}
     no draft
@@ -38,42 +34,38 @@ Width: {$draftWidth} - Height: {$draftHeight}
     var deckId = "{$card->getDeckId()}";
 </script>
 
-<!-- crop -->
+<!-- https://fengyuanchen.github.io/cropperjs/ -->
+<script src="libs/chopper/cropper.js"></script>
 <script>
-    var draftWidth = {$draftWidth};
-    var draftHeight = {$draftHeight};
-    var containerWidth = 400;
-    var containerHeight = 400;
+  window.addEventListener('DOMContentLoaded', function () {
+    var draftPreview = document.querySelector('#draftPreview');
+    var cropper = new Cropper(draftPreview, {
+      ready: function () {
+        var cropper = this.cropper;
+        var containerData = cropper.getContainerData();
+        var cropBoxData = cropper.getCropBoxData();
+        var aspectRatio = cropBoxData.width / cropBoxData.height;
 
-    var ratio = 1 ;
-    if(draftWidth>draftHeight) { // landscape
-        ratio = containerWidth/draftWidth;
-    } else {
-        ratio = containerHeight/draftHeight;
-    }
-    var draftPreviewWidth = (draftWidth*ratio);
-    var draftPreviewHeight = (draftHeight*ratio);
+        cropper.setCropBoxData({
+            left: (containerData.width - newCropBoxWidth) / 2,
+            width: cropBoxData.height * 0.5
+        });
+      },
 
+      cropmove: function () {
+        var cropper = this.cropper;
+        var cropBoxData = cropper.getCropBoxData();
+        var aspectRatio = cropBoxData.width / cropBoxData.height;
 
-    var container = document.getElementById('container-draft');
-    var image = document.getElementById('full-image');
-    var canvas = document.getElementById('canvas');
-
-    container.style.width = containerWidth+"px";
-    container.style.height = containerHeight+"px";
-    image.style.height = draftPreviewHeight+"px";
-    image.style.width = draftPreviewWidth+"px";
-    image.style.left = containerWidth/2 - draftWidth/2;
-
-    var handleRadius = 10;
-    var effective_image_width = draftPreviewWidth;
-    var effective_image_height = draftPreviewHeight;
-    var th_left = 20;
-    var th_top = 0;
-    var th_right = 70;
-    var th_bottom = 400;
+        cropper.setCropBoxData({
+            width: cropBoxData.height * 0.5
+        });
+        
+      },
+    });
+  });
 </script>
-<script src="libs/js/imagecrop.js?1"></script>
+
 
 <script>
     function setName() {
